@@ -1,0 +1,17 @@
+{
+  "name": "Hinge AI Copilot",
+  "short_name": "Dating Copilot",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f5f2",
+  "theme_color": "#17151d",
+  "description": "A private, human-controlled dating copilot.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

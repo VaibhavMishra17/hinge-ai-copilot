@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17151d">
+  <meta name="description" content="A private, human-controlled dating copilot for profile analysis and conversation drafts.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Hinge AI Copilot</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✦</span><div><strong>Hinge AI Copilot</strong><small>Private dating companion</small></div></div>
+    <button id="installBtn" class="btn btn-quiet hidden">Install</button>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">YOUR DATING WORKSPACE</p>
+      <h1>Thoughtful matches.<br><em>Better conversations.</em></h1>
+      <p class="muted">Analyse profile prompts, find genuine common ground and draft messages in your voice. You approve every action.</p>
+      <div class="chips"><span>Casual dating</span><span>Adaptive tone</span><span>Human approval</span></div>
+    </section>
+
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-view="analyze">Profile analysis</button>
+      <button class="tab" data-view="saved">Saved profiles <b id="savedCount">0</b></button>
+      <button class="tab" data-view="settings">Preferences</button>
+    </nav>
+
+    <section id="view-analyze" class="view">
+      <div class="section-heading"><div><p class="eyebrow">01 / PROFILE INPUT</p><h2>Get to know the profile</h2></div><span class="step">1 of 3</span></div>
+      <form id="profileForm" class="panel">
+        <label>Profile nickname <span class="optional">Optional</span><input id="nickname" maxlength="50" placeholder="e.g. Travel enthusiast"></label>
+        <label>Her Hinge prompts <span class="required">At least one prompt</span>
+          <textarea id="prompts" rows="6" required maxlength="2500" placeholder="Paste the text of her prompts here. Remove names, handles and identifying details.&#10;&#10;Prompt 1: ...&#10;Prompt 2: ..."></textarea>
+        </label>
+        <label>Other non-sensitive details (optional)<textarea id="details" rows="3" maxlength="1000" placeholder="Interests or details she has chosen to share, e.g. loves hiking and indie films."></textarea></label>
+        <div class="actions"><button class="btn btn-primary" type="submit">Build AI analysis prompt <span>↗</span></button><button class="btn btn-secondary" type="button" id="clearForm">Clear</button></div>
+      </form>
+
+      <div id="promptResult" class="panel result hidden">
+        <div class="result-head"><div><p class="eyebrow">02 / AI PROMPT</p><h3>Your analysis brief is ready</h3></div><span class="status">Ready</span></div>
+        <p class="muted small">Copy this into ChatGPT or Gemini. The app does not send profile data anywhere.</p>
+        <pre id="analysisPrompt" class="prompt-box"></pre>
+        <div class="actions"><button class="btn btn-primary" id="copyPrompt">Copy prompt</button><button class="btn btn-secondary" id="openChatGPT">Open ChatGPT</button></div>
+        <div class="notice">Review the AI's suggestions yourself. Compatibility is a conversation aid, not a prediction about a person.</div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">03 / BRING BACK THE RESULT</p>
+        <h3>Save the analysis</h3>
+        <p class="muted small">After ChatGPT/Gemini responds, paste its useful output below to keep it with this profile.</p>
+        <textarea id="aiResult" rows="6" placeholder="Paste the AI analysis and suggested openers here..."></textarea>
+        <button id="saveProfile" class="btn btn-primary full" disabled>Save profile and analysis</button>
+      </div>
+      <p class="fineprint">Use only information voluntarily shown on a profile. Do not upload or store private, intimate or identifying information. This tool does not access, swipe, like or message on Hinge.</p>
+    </section>
+
+    <section id="view-saved" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">YOUR SHORTLIST</p><h2>Saved profiles</h2></div></div>
+      <div id="profileList" class="profile-list"></div>
+      <div id="emptySaved" class="empty panel"><span>✧</span><h3>No saved profiles yet</h3><p class="muted">Analyse a profile and save the AI's response to see it here.</p></div>
+      <div id="profileDetail" class="panel hidden"></div>
+    </section>
+
+    <section id="view-settings" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">YOUR DEFAULTS</p><h2>Dating preferences</h2></div></div>
+      <div class="panel settings">
+        <div class="setting"><div><strong>Dating intent</strong><small>What you're looking for</small></div><span>Casual dating</span></div>
+        <div class="setting"><div><strong>Conversation style</strong><small>How messages should feel</small></div><span>A mixture of everything</span></div>
+        <div class="setting"><div><strong>Tone adaptation</strong><small>Match her energy without pretending</small></div><span>Adapt to her personality</span></div>
+        <div class="setting"><div><strong>Approval policy</strong><small>Nothing is sent automatically</small></div><span>Approve every action</span></div>
+        <div class="setting"><div><strong>Compatibility priorities</strong><small>Weighted equally</small></div><span>Shared interests · Intellectual compatibility · Humour</span></div>
+        <div class="notice">Your preferences are built into every generated analysis prompt. Profile data and saved notes remain in this browser's local storage.</div>
+        <button id="exportData" class="btn btn-secondary full">Export my saved data</button>
+        <button id="deleteData" class="btn btn-danger full">Delete all local data</button>
+      </div>
+    </section>
+  </main>
+  <footer>Made for intentional conversations · No Hinge account access</footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
